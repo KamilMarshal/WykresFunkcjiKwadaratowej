@@ -1,0 +1,127 @@
+package sample;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Line;
+
+
+public class Controller{
+
+    @FXML
+    TextField aTextField, bTextField;
+
+    @FXML
+    Button narysujButton, wyczyscButton;
+
+    @FXML
+    Label niepoprawneDane, equation, minX, midX, maxX, minY, midY, maxY, mscZerowe, przeciecieY;
+
+    @FXML
+    Line liniaWykresowa, kreskaMiejscaZerowego, kreskaPrzecieciaY;
+
+    public void sprawdzDane(MouseEvent mouseEvent)
+    {
+        System.out.println("sprawdź dane");
+
+        String atext = aTextField.getText();
+        String btext = bTextField.getText();
+        String wzor = "[-+]?[0-9]*[.]?[0-9]+";
+
+        if (atext.isBlank()||btext.isBlank())
+        {
+            niepoprawneDane.setText("Wprowadź dane! Są puste pola");
+            System.out.println("Blank");
+            return;
+        }
+        else if (!atext.matches(wzor)||!btext.matches(wzor))
+        {
+            niepoprawneDane.setText("Wprowadź liczby!");
+            System.out.println("!liczba");
+            return;
+        }
+        niepoprawneDane.setText("");
+        float a = Float.parseFloat(atext);
+        float b = Float.parseFloat(btext);
+        System.out.println("a="+a+" b="+b);
+        if (a==0 && b!=0) equation.setText("miejsce zerowe = "+b);
+        else if (a==0 && b==0) equation.setText("Nieskończenie wiele miejsc zerowych");
+        else equation.setText("miejsce zerowe = "+(-b/a));
+        rysuj(a,b);
+
+    }
+
+    private void rysuj(float a, float b)
+    {
+        wspolczynnikX(a,b);
+        //Math.ta
+
+    }
+    private float sprZnak(float x)
+    {
+        if (x<0) return -1;
+        else return 1;
+    }
+
+    private void wspolczynnikX(float a, float b)
+    {
+        final float O_X = 400;
+
+        float miejsceZerowe = (-b/a);
+        float temp = Math.round(miejsceZerowe);
+        if (miejsceZerowe < 8 && miejsceZerowe > -8)
+        {
+            maxX.setText("8");
+            midX.setText("1");
+            minX.setText("-9");
+            maxY.setText("4");
+            midY.setText("1");
+            minY.setText("-3");
+            mscZerowe.setLayoutX((+(miejsceZerowe*40)+(O_X-25))/Float.parseFloat(midX.getText()));
+            mscZerowe.setText(String.valueOf(miejsceZerowe));
+            kreskaMiejscaZerowego.setLayoutX((+(miejsceZerowe*40)+(O_X))/Float.parseFloat(midX.getText()));
+            kreskaPrzecieciaY.setLayoutY((b*40+200)/Float.parseFloat(midY.getText()));
+            przeciecieY.setText(String.valueOf(b));
+        }
+        else if (miejsceZerowe<0)
+        {
+            maxX.setText(String.valueOf((-2.0*temp)));
+            midX.setText(String.valueOf((-0.125*temp)));
+            minX.setText(String.valueOf((2.0*(9.0/8.0))*temp));
+
+            maxY.setText(String.valueOf((-0.75*temp)));
+            midY.setText(String.valueOf((-0.125*temp)));
+            minY.setText(String.valueOf((9.0/8.0)*temp));
+        }
+        else
+        {
+            maxX.setText(String.valueOf((2 * temp)));
+            midX.setText(String.valueOf((0.125*temp)));
+            minX.setText(String.valueOf((-2.0 * (9.0 / 8.0)) * temp));
+
+            maxY.setText(String.valueOf((0.75*temp)));
+            midY.setText(String.valueOf((0.125*temp)));
+            minY.setText(String.valueOf(-(9.0/8.0)*temp));
+
+
+        }
+        if (miejsceZerowe>=8||miejsceZerowe<=-8)
+        {
+            mscZerowe.setLayoutX(sprZnak(miejsceZerowe) * 175 + (O_X-25));
+            mscZerowe.setLayoutY(165);
+            mscZerowe.setText(String.valueOf(miejsceZerowe));
+
+            kreskaMiejscaZerowego.setLayoutX(sprZnak(miejsceZerowe) * 180);
+        }
+    }
+
+    public void czyscDane(MouseEvent mouseEvent)
+    {
+        aTextField.setText("");
+        bTextField.setText("");
+    }
+
+
+}

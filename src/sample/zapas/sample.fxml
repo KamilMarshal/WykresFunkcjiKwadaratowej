@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Text boundsType="VISUAL" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="PROGRAM RYSUJĄCY FUNKCJĘ LINIOWĄ" textAlignment="CENTER" wrappingWidth="1009.033203125" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Calibri Bold" size="22.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutY="50.0" prefHeight="100.0" prefWidth="1000.0">
+         <children>
+            <Label alignment="CENTER" layoutX="36.0" layoutY="21.0" prefHeight="30.0" prefWidth="101.0" text="Równanie:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="aTextField" alignment="CENTER" layoutX="191.0" layoutY="14.0" prefHeight="44.0" prefWidth="75.0" promptText="a">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField fx:id="bTextField" alignment="CENTER" layoutX="316.0" layoutY="14.0" prefHeight="44.0" prefWidth="75.0" promptText="b">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="391.0" layoutY="16.0" prefHeight="40.0" prefWidth="42.0" text="x +">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="cTextField" alignment="CENTER" layoutX="432.0" layoutY="14.0" prefHeight="44.0" prefWidth="75.0" promptText="c">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="507.0" layoutY="16.0" prefHeight="40.0" prefWidth="50.0" text="= 0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Button fx:id="narysujButton" layoutX="608.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#sprawdzDane" text="Narysuj">
+               <font>
+                  <Font name="Calibri" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="wyczyscButton" layoutX="710.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#czyscDane" text="Wyczyść">
+               <font>
+                  <Font name="Calibri" size="20.0" />
+               </font>
+            </Button>
+            <Label fx:id="niepoprawneDane" alignment="CENTER" disable="true" layoutX="220.0" layoutY="58.0" prefHeight="30.0" prefWidth="561.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="266.0" layoutY="17.0" prefHeight="40.0" prefWidth="50.0" text="x² +">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </AnchorPane>
+      <AnchorPane fx:id="tablica" layoutY="150.0" prefHeight="750.0" prefWidth="1000.0">
+         <children>
+            <Pane fx:id="ukladWspol" layoutX="101.0" layoutY="50.0" prefHeight="650.0" prefWidth="800.0">
+               <children>
+                  <Line endX="740.0" layoutX="40.0" layoutY="360.0" />
+                  <Line endX="400.0" endY="640.0" startX="400.0" startY="50.0" />
+                  <Line endX="400.0" endY="50.0" startX="385.0" startY="70.0" />
+                  <Line endX="395.0" endY="70.0" layoutX="20.0" startX="380.0" startY="50.0" />
+                  <Label layoutX="364.0" layoutY="26.0" text="Y">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="774.0" layoutY="391.0" text="X">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="400.0" endY="50.0" layoutX="380.0" layoutY="310.0" startX="385.0" startY="65.0" />
+                  <Line endX="395.0" endY="70.0" layoutX="385.0" layoutY="289.0" startX="380.0" startY="55.0" />
+                  <Label fx:id="przeciecieY" alignment="CENTER" layoutX="415.0" layoutY="350.0" prefHeight="15.0" prefWidth="50.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Group id="podziałka" layoutY="160.0">
+                     <children>
+                        <Line endX="50.0" endY="210.0" layoutX="-10.0" startX="50.0" startY="190.0" />
+                        <Line endX="90.0" endY="207.0" layoutX="-10.0" startX="90.0" startY="193.0" />
+                        <Line endX="130.0" endY="207.0" layoutX="-10.0" startX="130.0" startY="193.0" />
+                        <Line endX="170.0" endY="207.0" layoutX="-10.0" startX="170.0" startY="193.0" />
+                        <Line endX="210.0" endY="207.0" layoutX="-10.0" startX="210.0" startY="193.0" />
+                        <Line endX="250.0" endY="207.0" layoutX="-10.0" startX="250.0" startY="193.0" />
+                        <Line endX="290.0" endY="207.0" layoutX="-10.0" startX="290.0" startY="193.0" />
+                        <Line endX="330.0" endY="207.0" layoutX="-10.0" startX="330.0" startY="193.0" />
+                        <Line endX="370.0" endY="207.0" layoutX="-10.0" startX="370.0" startY="193.0" />
+                        <Line endX="430.0" endY="207.0" layoutX="10.0" startX="430.0" startY="193.0" />
+                        <Line endX="470.0" endY="207.0" layoutX="10.0" startX="470.0" startY="193.0" />
+                        <Line endX="510.0" endY="207.0" layoutX="10.0" startX="510.0" startY="193.0" />
+                        <Line endX="550.0" endY="207.0" layoutX="10.0" startX="550.0" startY="193.0" />
+                        <Line endX="590.0" endY="207.0" layoutX="10.0" startX="590.0" startY="193.0" />
+                        <Line endX="630.0" endY="207.0" layoutX="10.0" startX="630.0" startY="193.0" />
+                        <Line endX="670.0" endY="207.0" layoutX="10.0" startX="670.0" startY="193.0" />
+                        <Line endX="710.0" endY="207.0" layoutX="10.0" startX="710.0" startY="193.0" />
+                        <Line fx:id="kreskaMiejscaZerowego2" endX="400.0" endY="205.0" startX="400.0" startY="195.0" />
+                        <Line endX="760.0" endY="207.0" startX="760.0" startY="193.0" />
+                        <Line fx:id="kreskaMiejscaZerowego1" endX="400.0" endY="205.0" startX="400.0" startY="195.0" />
+                     </children>
+                  </Group>
+                  <Group>
+                     <children>
+                        <Line endX="410.0" endY="590.0" layoutY="50.0" startX="390.0" startY="590.0" />
+                        <Line endX="407.0" endY="310.0" layoutY="10.0" startX="393.0" startY="310.0" />
+                        <Line endX="407.0" endY="270.0" layoutY="10.0" startX="393.0" startY="270.0" />
+                        <Line endX="407.0" endY="230.0" layoutY="10.0" startX="393.0" startY="230.0" />
+                        <Line endX="407.0" endY="170.0" layoutY="-10.0" startX="393.0" startY="170.0" />
+                        <Line endX="407.0" endY="90.0" layoutY="-10.0" startX="393.0" startY="90.0" />
+                        <Line endX="407.0" endY="130.0" layoutY="-10.0" startX="393.0" startY="130.0" />
+                        <Line fx:id="kreskaPrzecieciaY" endX="405.0" endY="360.0" startX="395.0" startY="360.0" />
+                        <Line endX="407.0" endY="350.0" layoutY="10.0" startX="393.0" startY="350.0" />
+                        <Line endX="407.0" endY="390.0" layoutY="10.0" startX="393.0" startY="390.0" />
+                        <Line endX="407.0" endY="510.0" layoutY="10.0" startX="393.0" startY="510.0" />
+                        <Line endX="407.0" endY="470.0" layoutY="10.0" startX="393.0" startY="470.0" />
+                        <Line endX="407.0" endY="430.0" layoutY="10.0" startX="393.0" startY="430.0" />
+                        <Line endX="407.0" endY="550.0" layoutY="10.0" startX="393.0" startY="550.0" />
+                        <Line endX="407.0" endY="590.0" layoutY="10.0" startX="393.0" startY="590.0" />
+                        <Label fx:id="mscZerowe2" alignment="CENTER" layoutX="375.0" layoutY="375.0" prefHeight="15.0" prefWidth="50.0" textAlignment="CENTER">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font>
+                        </Label>
+                        <Line endX="407.0" endY="190.0" layoutY="10.0" startX="393.0" startY="190.0" />
+                        <Label fx:id="mscZerowe1" alignment="CENTER" layoutX="375.0" layoutY="375.0" prefHeight="15.0" prefWidth="50.0" textAlignment="CENTER">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Group>
+                  <Label fx:id="midX" alignment="CENTER" layoutX="420.0" layoutY="320.0" prefHeight="15.0" prefWidth="40.0" text="1" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxX" alignment="CENTER" layoutX="741.0" layoutY="320.0" prefHeight="15.0" prefWidth="40.0" text="9" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="midY" alignment="CENTER" layoutX="334.0" layoutY="312.0" prefHeight="15.0" prefWidth="50.0" text="1" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxY" alignment="CENTER" layoutX="335.0" layoutY="72.5" prefHeight="15.0" prefWidth="50.0" text="7" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="minX" alignment="CENTER" layoutX="19.0" layoutY="320.0" prefHeight="15.0" prefWidth="40.0" text="-9" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="minY" alignment="CENTER" layoutX="334.0" layoutY="632.0" prefHeight="15.0" prefWidth="50.0" text="-7" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Line fx:id="liniaWykresowa" endX="400.0" endY="200.0" startX="400.0" startY="200.0" />
+               </children>
+            </Pane>
+            <Label fx:id="equation" alignment="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="30.0" prefWidth="517.0" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

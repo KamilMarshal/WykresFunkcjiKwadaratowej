@@ -1,0 +1,190 @@
+package sample;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+
+
+public class Controller{
+
+    @FXML
+    TextField aTextField, bTextField, cTextField;
+
+    @FXML
+    Button narysujButton, wyczyscButton;
+
+    @FXML
+    Label niepoprawneDane, equation, minX, midX, maxX, minY, midY, maxY, mscZerowe1, mscZerowe2, przeciecieY;
+
+    @FXML
+    Line liniaWykresowa, kreskaMiejscaZerowego1, kreskaMiejscaZerowego2, kreskaPrzecieciaY;
+
+    @FXML
+    Pane ukladWspol;
+
+    public void sprawdzDane(MouseEvent mouseEvent)
+    {
+        System.out.println("sprawdź dane");
+
+        String atext = aTextField.getText();
+        String btext = bTextField.getText();
+        String ctext = cTextField.getText();
+        String wzor = "[-+]?[0-9]*[.]?[0-9]+";
+
+        if (atext.isBlank()||btext.isBlank()||ctext.isBlank())
+        {
+            niepoprawneDane.setText("Wprowadź dane! Są puste pola");
+            System.out.println("Blank");
+            return;
+        }
+        else if (!atext.matches(wzor)||!btext.matches(wzor)||!ctext.matches(wzor))
+        {
+            niepoprawneDane.setText("Wprowadź liczby!");
+            System.out.println("!liczba");
+            return;
+        }
+        niepoprawneDane.setText("");
+        float a = Float.parseFloat(atext);
+        float b = Float.parseFloat(btext);
+        float c = Float.parseFloat(ctext);
+        System.out.println("a="+a+" b="+b+" c="+c);
+
+        float x1=1000,x2=1000;
+
+        if (a!=0)
+        {
+            float delta = ((b*b)-(4*a*c));
+            if (delta>0)
+            {
+                x1 = (float) ((-b-Math.sqrt(delta))/(2*a));
+                x2 = (float) ((-b+Math.sqrt(delta))/(2*a));
+                equation.setText("dwa miejsca zerowe:   x₁="+x1+"   x₂="+x2);
+            }
+            else if (delta==0)
+            {
+                x1 = ((-b)/(2*a));
+                equation.setText("miejsce zerowe = "+x1);
+            }
+            else equation.setText("brak miejsc zerowych");
+        }
+        else if (b==0 && c!=0) equation.setText("miejsce zerowe = "+c);
+        else if (b==0 && c==0) equation.setText("Nieskończenie wiele miejsc zerowych");
+        else equation.setText("miejsce zerowe = "+(-c/b));
+        rysuj(a,b,c,x1,x2);
+    }
+
+    /*private float sprZnak(float x)
+    {
+        if (x<0) return -1;
+        else return 1;
+    }*/
+
+    private void rysuj(float a, float b, float c, float x1, float x2)
+    {
+                                                //  PUNKT (0;0) =>  X=390, Y=360
+
+        //zaznaczanie punków przecięcia z osiami OX i OY
+        if (a!=0)
+        {
+            float delta = ((b*b)-(4*a*c));
+            if (delta>0)
+            {
+                if (x1 < 9 && x1 > -9 && x1 != 1 && x2 < 9 && x2 > -9 && x2 != 1) {
+                    mscZerowe1.setLayoutX((x1 * 40) + (390));
+                    mscZerowe1.setText(String.valueOf(x1));
+                    mscZerowe2.setLayoutX((x2 * 40) + (390));
+                    mscZerowe2.setText(String.valueOf(x2));
+
+                    kreskaMiejscaZerowego1.setLayoutX(x1 * 40);
+                    kreskaMiejscaZerowego2.setLayoutX(x2 * 40);
+                }
+                if (c < 7 && c > -7 && c != 1) {
+                    przeciecieY.setLayoutY(-c * 40 + 350 + 20);
+                    przeciecieY.setText(String.valueOf(c));
+
+                    kreskaPrzecieciaY.setLayoutY((-c * 40));
+                }
+
+            }
+            else if (delta==0)
+            {
+                if (x1 < 9 && x1 > -9 && x1 != 1) {
+                    mscZerowe1.setLayoutX((x1 * 40) + (390));
+                    mscZerowe1.setText(String.valueOf(x1));
+
+                    kreskaMiejscaZerowego1.setLayoutX(x1 * 40);
+                }
+                if (c < 7 && c > -7 && c != 1) {
+                    przeciecieY.setLayoutY(-c * 40 + 350 + 20);
+                    przeciecieY.setText(String.valueOf(c));
+
+                    kreskaPrzecieciaY.setLayoutY((c * 40));
+                }
+            }
+            else equation.setText("brak miejsc zerowych");
+        }
+        else
+        {
+            if (x1 < 9 && x1 > -9 && x1 != 1) {
+                mscZerowe1.setLayoutX((x1 * 40) + (390));
+                mscZerowe1.setText(String.valueOf(x1));
+
+                kreskaMiejscaZerowego1.setLayoutX(x1 * 40);
+            }
+            if (c < 7 && c > -7 && c != 1) {
+                przeciecieY.setLayoutY(-c * 40 + 350 + 20);
+                przeciecieY.setText(String.valueOf(c));
+
+                kreskaPrzecieciaY.setLayoutY((c * 40));
+            }
+        }
+
+        //rysowanie wykresu
+        //  PUNKT (0;0) =>  X=390, Y=360
+        //String[] linia = new String[170];
+        Line linia = new Line();
+        /*for (int i=0;i<=180;i++)
+        {
+            float x = (float) (-9.0 + (i*0.1));
+            float xx = (float) (-9.0 + ((i*0.1)+0.1));
+
+            float y1 = ((a*x*x) + (b*x) + c);
+            float y2 = ((a*xx*xx) + (b*xx) + c);
+
+            System.out.println("x="+x+"; y1="+y1+"; y2="+y2);
+            if (y1<7 && y1>-7&& y2<7 && y2>-7)
+            {
+                linia.setStartX(x*4+390);
+                linia.setStartY(-y1*40+350);
+                linia.setEndX(xx*4+390);
+                linia.setEndY(-y1*40+350);
+                System.out.println("linia ustawiona dla x="+x);
+
+            }
+        }*/
+        linia.setStartX(50);
+        linia.setStartY(600);
+        linia.setEndX(750);
+        linia.setEndY(50);
+        ukladWspol.getChildren().add(linia);
+
+    }
+
+    public void czyscDane(MouseEvent mouseEvent)
+    {
+        aTextField.setText("");
+        bTextField.setText("");
+        przeciecieY.setText("");
+        mscZerowe1.setText("");
+        mscZerowe2.setText("");
+        kreskaMiejscaZerowego1.setLayoutX(0);
+        kreskaMiejscaZerowego2.setLayoutX(0);
+        kreskaPrzecieciaY.setLayoutY(0);
+    }
+
+
+}
